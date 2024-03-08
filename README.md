@@ -165,6 +165,12 @@ If configured, a [CommandLineRunner](https://docs.spring.io/spring-boot/docs/cur
 
 ## Roadmap
 
+### Software Bill of Materials
+
+Explore and adapt some earlier work by Maciej Walkowiak, here: https://maciejwalkowiak.com/blog/maven-dependencies-spring-boot-actuator-info/.
+
+### Cloud Foundry and Buildpacks
+
 What if the [Java Buildpack](https://github.com/cloudfoundry/java-buildpack?tab=readme-ov-file#configuration-and-extension) could be extended where it would detect if the app to be deployed is a [Spring Boot 3.x](https://docs.spring.io/spring-boot/docs/current/reference/html/) application?  If that is the case, add this dependency to the classpath if not already specified, when assembling the droplet.
 
 The self-same plugin could also detect, if configured to do so, if [cf-butler](https://github.com/cf-toolsuite/cf-butler) was deployed on the target foundation.  And if that is the case, it would set an env variable equating to the hostname of the cf-butler instance, then the application could register its dependencies with that instance via a POST request at startup.
