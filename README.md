@@ -53,6 +53,27 @@ Add the following dependency to your application's pom.xml file
 </dependency>
 ```
 
+Then make sure to enable the additional contributions to the `management.info` endpoint (e.g., in appiclation.yml)
+
+```
+management:
+  info:
+    dependencies:
+      enabled: true
+    sbom:
+      enabled: true
+```
+
+And if you want to expose the `/actuator/info`, `/actuator/jars` and `/actuator/pom` endpoints, you'll need add (e.g., in appiclation.yml)
+
+```
+  endpoints:
+    web:
+      exposure:
+        include: "info,jars,pom"
+```
+> where `endpoints` above is a sibling of (shares the same indentiation as) `info`
+
 Build your application, then start it up.
 
 Visit the above-mentioned custom [actuator endpoints](https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html).
