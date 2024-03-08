@@ -2,10 +2,13 @@
 
 [![GA](https://img.shields.io/badge/Release-Alpha-orange)](https://img.shields.io/badge/Release-Alpha-orange) ![Github Action CI Workflow Status](https://github.com/cf-toolsuite/spring-boot-starter-runtime-metadata/actions/workflows/ci.yml/badge.svg) [![Known Vulnerabilities](https://snyk.io/test/github/cf-toolsuite/spring-boot-starter-runtime-metadatar/badge.svg?style=plastic)](https://snyk.io/test/github/cf-toolsuite/spring-boot-starter-runtime-metadata) [![Release](https://jitpack.io/v/cf-toolsuite/spring-boot-starter-runtime-metadata.svg)](https://jitpack.io/#cf-toolsuite/spring-boot-starter-runtime-metadata/master-SNAPSHOT) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-This starter aims to provide a couple of custom actuator endpoints:
+This starter aims to provide a few custom actuator endpoints:
 
 * GET `/actuator/jars` will list the dependent `.jar` files embedded in a Spring Boot application
 * GET `/actuator/pom` will emit the contents of the `pom.xml` file (if the application was built with Maven)
+* GET `actuator/info` enhanced to provide
+  * a CycloneDX SBOM in JSON format (only if the application packages an sbom.json)
+  * just the list of dependencies in JSON format (again only if the application packages an sbom.json)
 
 
 ## Background
@@ -153,6 +156,33 @@ Content-Type: application/vnd.spring-boot.actuator.v3+json;charset=UTF-8
   ...
 ```
 
+```
+GET /actuator/info
+```
+
+Just a sample of what you can get from the additionally contributed `dependencies` section
+
+```
+❯ http :8080/actuator/info | jq .dependencies
+[
+  {
+    "groupId": "org.projectlombok",
+    "artifactId": "lombok",
+    "version": "1.18.30"
+  },
+  {
+    "groupId": "jakarta.validation",
+    "artifactId": "jakarta.validation-api",
+    "version": "3.0.2"
+  },
+  {
+    "groupId": "org.apache.commons",
+    "artifactId": "commons-lang3",
+    "version": "3.14.0"
+  },
+  ...
+```
+
 
 ## Targeted Platforms
 
@@ -165,12 +195,16 @@ If configured, a [CommandLineRunner](https://docs.spring.io/spring-boot/docs/cur
 
 ## Roadmap
 
-### Software Bill of Materials
-
-Explore and adapt some earlier work by Maciej Walkowiak, here: https://maciejwalkowiak.com/blog/maven-dependencies-spring-boot-actuator-info/.  Also keep an eye on https://github.com/spring-projects/spring-boot/issues/22924.
-
 ### Cloud Foundry and Buildpacks
 
 What if the [Java Buildpack](https://github.com/cloudfoundry/java-buildpack?tab=readme-ov-file#configuration-and-extension) could be extended where it would detect if the app to be deployed is a [Spring Boot 3.x](https://docs.spring.io/spring-boot/docs/current/reference/html/) application?  If that is the case, add this dependency to the classpath if not already specified, when assembling the droplet.
 
 The self-same plugin could also detect, if configured to do so, if [cf-butler](https://github.com/cf-toolsuite/cf-butler) was deployed on the target foundation.  And if that is the case, it would set an env variable equating to the hostname of the cf-butler instance, then the application could register its dependencies with that instance via a POST request at startup.
+
+
+## Credits
+
+### Software Bill of Materials
+
+* Adapted earlier work by Maciej Walkowiak, here: https://maciejwalkowiak.com/blog/maven-dependencies-spring-boot-actuator-info/.
+* Keeping an eye on https://github.com/spring-projects/spring-boot/issues/22924.
