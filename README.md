@@ -158,6 +158,13 @@ Content-Type: application/vnd.spring-boot.actuator.v3+json;charset=UTF-8
 
 ### Cloud Foundry
 
-WIP
+:construction: WIP
 
 If configured, a [CommandLineRunner](https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/CommandLineRunner.html) will publish (push) the data emitted from the endpoints above into a [cf-butler](https://github.com/cf-toolsuite/cf-butler) instance on a target Cloud Foundry foundation.
+
+
+## Roadmap
+
+What if the [Java Buildpack](https://github.com/cloudfoundry/java-buildpack?tab=readme-ov-file#configuration-and-extension) could be extended where it would detect if the app to be deployed is a [Spring Boot 3.x](https://docs.spring.io/spring-boot/docs/current/reference/html/) application.  If that is the case, add this dependency to the classpath if not already specified, when assembling the droplet.
+
+The self-same plugin could also detect, if configured to do so, if [cf-butler](https://github.com/cf-toolsuite/cf-butler) was deployed on the target foundation.  And if that is the case, it would set an env variable equating to the hostname of the cf-butler instance, then the application could register its dependencies with that instance via a POST request at startup.
