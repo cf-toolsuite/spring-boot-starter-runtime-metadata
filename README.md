@@ -167,7 +167,7 @@ If configured, a [CommandLineRunner](https://docs.spring.io/spring-boot/docs/cur
 
 ### Software Bill of Materials
 
-Explore and adapt some earlier work by Maciej Walkowiak, here: https://maciejwalkowiak.com/blog/maven-dependencies-spring-boot-actuator-info/.
+Explore and adapt some earlier work by Maciej Walkowiak, here: https://maciejwalkowiak.com/blog/maven-dependencies-spring-boot-actuator-info/.  Also keep an eye on https://github.com/spring-projects/spring-boot/issues/22924.
 
 ### Cloud Foundry and Buildpacks
 
