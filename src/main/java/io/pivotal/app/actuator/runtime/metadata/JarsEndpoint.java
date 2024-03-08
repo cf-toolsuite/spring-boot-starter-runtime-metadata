@@ -1,6 +1,6 @@
 package io.pivotal.app.actuator.runtime.metadata;
 
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
@@ -15,7 +15,7 @@ public class JarsEndpoint {
     }
 
     @ReadOperation
-    public List<String> getJars() {
+    public Set<String> getJars() {
         return artifactsService.findJars();
     }
 }
