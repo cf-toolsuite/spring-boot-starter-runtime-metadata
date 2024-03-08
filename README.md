@@ -64,7 +64,7 @@ management:
       enabled: true
 ```
 
-And if you want to expose the `/actuator/info`, `/actuator/jars` and `/actuator/pom` endpoints, you'll need add (e.g., in application.yml)
+And if you want to expose the `/actuator/info`, `/actuator/jars` and `/actuator/pom` endpoints, you'll need to add (e.g., in application.yml)
 
 ```
   endpoints:
@@ -78,7 +78,10 @@ Build your application, then start it up.
 
 Visit the above-mentioned custom [actuator endpoints](https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html).
 
-What does it look like?
+
+## Endpoints
+
+So what do you get when you've plumbed everything correctly?
 
 ```
 GET /actuator/jars
