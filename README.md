@@ -72,7 +72,7 @@ And if you want to expose the `/actuator/info`, `/actuator/jars` and `/actuator/
       exposure:
         include: "info,jars,pom"
 ```
-> where `endpoints` above is a sibling of (shares the same indentiation as) `info`
+> where `endpoints` above is a sibling of (shares the same indentation as) `info`
 
 Build your application, then start it up.
 
@@ -112,41 +112,6 @@ Content-Type: application/vnd.spring-boot.actuator.v3+json
     "BOOT-INF/lib/spring-aop-6.1.4.jar",
     "BOOT-INF/lib/spring-expression-6.1.4.jar",
     "BOOT-INF/lib/json-io-4.19.1.jar",
-    "BOOT-INF/lib/jldap-2009-10-07.jar",
-    "BOOT-INF/lib/spring-boot-autoconfigure-3.2.3.jar",
-    "BOOT-INF/lib/logback-classic-1.4.14.jar",
-    "BOOT-INF/lib/logback-core-1.4.14.jar",
-    "BOOT-INF/lib/log4j-to-slf4j-2.21.1.jar",
-    "BOOT-INF/lib/log4j-api-2.21.1.jar",
-    "BOOT-INF/lib/jul-to-slf4j-2.0.12.jar",
-    "BOOT-INF/lib/spring-boot-actuator-autoconfigure-3.2.3.jar",
-    "BOOT-INF/lib/spring-boot-actuator-3.2.3.jar",
-    "BOOT-INF/lib/micrometer-observation-1.12.3.jar",
-    "BOOT-INF/lib/micrometer-commons-1.12.3.jar",
-    "BOOT-INF/lib/micrometer-jakarta9-1.12.3.jar",
-    "BOOT-INF/lib/jackson-module-parameter-names-2.16.1.jar",
-    "BOOT-INF/lib/reactor-netty-http-1.1.16.jar",
-    "BOOT-INF/lib/netty-codec-http-4.1.107.Final.jar",
-    "BOOT-INF/lib/netty-common-4.1.107.Final.jar",
-    "BOOT-INF/lib/netty-buffer-4.1.107.Final.jar",
-    "BOOT-INF/lib/netty-transport-4.1.107.Final.jar",
-    "BOOT-INF/lib/netty-codec-4.1.107.Final.jar",
-    "BOOT-INF/lib/netty-codec-http2-4.1.107.Final.jar",
-    "BOOT-INF/lib/netty-resolver-dns-4.1.107.Final.jar",
-    "BOOT-INF/lib/netty-resolver-4.1.107.Final.jar",
-    "BOOT-INF/lib/netty-codec-dns-4.1.107.Final.jar",
-    "BOOT-INF/lib/netty-resolver-dns-native-macos-4.1.107.Final-osx-x86_64.jar",
-    "BOOT-INF/lib/netty-resolver-dns-classes-macos-4.1.107.Final.jar",
-    "BOOT-INF/lib/netty-transport-native-epoll-4.1.107.Final-linux-x86_64.jar",
-    "BOOT-INF/lib/netty-transport-native-unix-common-4.1.107.Final.jar",
-    "BOOT-INF/lib/netty-transport-classes-epoll-4.1.107.Final.jar",
-    "BOOT-INF/lib/spring-web-6.1.4.jar",
-    "BOOT-INF/lib/spring-beans-6.1.4.jar",
-    "BOOT-INF/lib/spring-webflux-6.1.4.jar",
-    "BOOT-INF/lib/spring-data-r2dbc-3.2.3.jar",
-    "BOOT-INF/lib/spring-data-relational-3.2.3.jar",
-    "BOOT-INF/lib/jsqlparser-4.6.jar",
-    "BOOT-INF/lib/spring-data-commons-3.2.3.jar",
     ...
 ```
 
@@ -205,6 +170,12 @@ Just a sample of what you can get from the additionally contributed `dependencie
     "version": "3.14.0"
   },
   ...
+```
+
+And how you can download a software bill of materials
+
+```
+❯ http :8080/actuator/info | jq .sbom > sbom.json
 ```
 
 
