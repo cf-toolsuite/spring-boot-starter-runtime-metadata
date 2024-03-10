@@ -53,6 +53,28 @@ Add the following dependency to your application's pom.xml file
 </dependency>
 ```
 
+If you want to embed and expose a bill of materials from your artifact, then you'll also want to add this plugin to your application's pom.xml file too
+
+```
+<plugin>
+  <groupId>org.cyclonedx</groupId>
+  <artifactId>cyclonedx-maven-plugin</artifactId>
+  <version>2.7.11</version>
+  <executions>
+    <execution>
+      <phase>validate</phase>
+      <goals>
+        <goal>makeAggregateBom</goal>
+      </goals>
+    </execution>
+  </executions>
+  <configuration>
+    <outputFormat>json</outputFormat>
+    <outputName>classes/bom</outputName>
+  </configuration>
+</plugin>
+```
+
 Then make sure to enable the additional contributions to the `management.info` endpoint (e.g., in application.yml)
 
 ```
