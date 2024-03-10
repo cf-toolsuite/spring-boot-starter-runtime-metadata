@@ -43,6 +43,8 @@ sdk use java 17.0.10-librca
 
 ## How to use
 
+### Maven
+
 Add the following dependency to your application's pom.xml file
 
 ```
@@ -75,7 +77,31 @@ If you want to embed and expose a bill of materials from your artifact, then you
 </plugin>
 ```
 
-Then make sure to enable the additional contributions to the `management.info` endpoint (e.g., in application.yml)
+### Gradle
+
+Add the following dependency to your application's build.gradle file
+
+```
+dependencies {
+    compile group: 'io.pivotal.app.actuator', name: 'spring-boot-starter-runtime-metadata', version: '0.1.0'
+}
+```
+
+If you want to embed and expose a bill of materials from your artifact, then you'll also want to add this plugin to your application's build.gradle file too
+
+```
+plugins {
+  id 'org.cyclonedx.bom' version '1.8.2'
+}
+
+tasks.named("cyclonedxBom") {
+  destination = file("${buildDir}/classes/cyclonedx")
+}
+```
+
+### Spring Boot application.yml
+
+Then make sure to enable the additional contributions to the `management.info` endpoint
 
 ```
 management:
