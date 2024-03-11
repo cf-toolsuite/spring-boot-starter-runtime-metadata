@@ -45,7 +45,7 @@ sdk use java 17.0.10-librca
 
 ### Maven
 
-Add the following dependency to your application's pom.xml file
+Add the following `dependency` to your application's `pom.xml` file
 
 ```
 <dependency>
@@ -55,7 +55,7 @@ Add the following dependency to your application's pom.xml file
 </dependency>
 ```
 
-If you want to embed and expose a bill of materials from your artifact, then you'll also want to add this plugin to your application's pom.xml file too
+If you want to embed and expose a bill of materials from your artifact, then you'll also want to add this `plugin` to your application's `pom.xml` file too
 
 ```
 <plugin>
@@ -79,7 +79,7 @@ If you want to embed and expose a bill of materials from your artifact, then you
 
 ### Gradle
 
-Add the following dependency to your application's build.gradle file
+Add the following `dependency` to your application's `build.gradle` file
 
 ```
 dependencies {
@@ -87,7 +87,7 @@ dependencies {
 }
 ```
 
-If you want to embed and expose a bill of materials from your artifact, then you'll also want to add this plugin to your application's build.gradle file too
+If you want to embed and expose a bill of materials from your artifact, then you'll also want to add this `plugin` to your application's `build.gradle` file too
 
 ```
 plugins {
@@ -98,6 +98,35 @@ tasks.named("cyclonedxBom") {
   destination = file("${buildDir}/classes/cyclonedx")
 }
 ```
+
+### Cloud Native Buildpacks
+
+If you use the [pack](https://buildpacks.io/docs/for-app-developers/how-to/build-inputs/) CLI to assemble a container image, then you're probably saying to yourself: "I don't need to add a plugin to my build configuration because `pack` will write bill of materials files in various formats to a specific layer that I can later download a copy from".
+
+So, you build your app from source with:
+
+```
+pack build {owner/your-app-name} --path {/path/to/your/app/source} --builder paketobuildpacks/builder-jammy-full
+```
+> Replace `{owner/your-app-name}` and `{/path/to/your/app/source}` with the owner/name of your application and the path to source (i.e., where your build file is) respectively
+
+Verify your image includes bill of materials files in various formats by following these [instructions](https://buildpacks.io/docs/for-app-developers/how-to/build-outputs/download-sbom/).
+
+Among several sub-directories underneath the `layers/sbom/launch` directory, you find:
+
+```
++- paketo-buildpacks_executable-jar
+  +- sbom.cdx.json
+  +- sbom.syft.json
+```
+
+Unfortunately, these files are not available and accessible in the container image at runtime.  But what you can do is make a copy of the `sbom.cdx.json` file, like so:
+
+```
+cp -f layers/sbom/launch/paketo-buildpacks_executable-jar/sbom.cdx.json src/main/resources/sbom.json
+```
+
+Then rebuild the container image.  (Remember to repeat this process for any change you make to source).
 
 ### Spring Boot application.yml
 
