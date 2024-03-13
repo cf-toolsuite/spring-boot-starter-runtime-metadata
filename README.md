@@ -2,6 +2,8 @@
 
 [![GA](https://img.shields.io/badge/Release-Alpha-orange)](https://img.shields.io/badge/Release-Alpha-orange) ![Github Action CI Workflow Status](https://github.com/cf-toolsuite/spring-boot-starter-runtime-metadata/actions/workflows/ci.yml/badge.svg) [![Known Vulnerabilities](https://snyk.io/test/github/cf-toolsuite/spring-boot-starter-runtime-metadatar/badge.svg?style=plastic)](https://snyk.io/test/github/cf-toolsuite/spring-boot-starter-runtime-metadata) [![Release](https://jitpack.io/v/cf-toolsuite/spring-boot-starter-runtime-metadata.svg)](https://jitpack.io/#cf-toolsuite/spring-boot-starter-runtime-metadata/master-SNAPSHOT) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
+![spring-boot-starter-runtime-metadata diagram](docs/spring-boot-starter-runtime-metadata.png)
+
 This starter aims to provide a few custom actuator endpoints:
 
 * GET `/actuator/jars` will list the dependent `.jar` files embedded in a Spring Boot application
