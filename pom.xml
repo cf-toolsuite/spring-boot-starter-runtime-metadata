@@ -1,21 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.2.3</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
+		<!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>io.pivotal.app.actuator</groupId>
 	<artifactId>spring-boot-starter-runtime-metadata</artifactId>
-	<version>0.1.0</version>
+	<version>0.1.1</version>
+
 	<name>spring-boot-starter-runtime-metadata</name>
-	<description>Custom actuator endpoint and cf-butler Java application detail data publisher command-line runner that shares the dependencies the application requires at runtime</description>
+	<description>Adds custom actuator endpoints that share details on the dependencies the application requires at runtime</description>
+
+	<scm>
+		<connection>scm:git:git://github.com/cf-toolsuite/spring-boot-starter-runtime-metadata.git</connection>
+		<developerConnection>scm:git:ssh://github.com/cf-toolsuite/spring-boot-starter-runtime-metadata.git</developerConnection>
+		<url>https://github.com/cf-toolsuite/spring-boot-starter-runtime-metadata</url>
+	</scm>
+
+	<developers>
+		<developer>
+			<id>cphillipson</id>
+			<name>Chris Phillipson</name>
+			<email>cphillipson@pivotal.io</email>
+			<url>https://pivotal.io</url>
+			<roles>
+				<role>architect</role>
+				<role>developer</role>
+			</roles>
+			<timezone>America/Seattle</timezone>
+		</developer>
+	</developers>
+
+	<distributionManagement>
+		<!-- publish to GitHub gh-pages -->
+		<site>
+			<id>github</id>
+			<name>Deployment through Maven's SCM Publish Plugin</name>
+			<url>scm:git:git@github.com:cf-toolsuite/spring-boot-starter-runtime-metadata.git</url>
+		</site>
+		<repository>
+			<id>github</id>
+			<name>GitHub Packages</name>
+			<url>https://maven.pkg.github.com/cf-toolsuite/spring-boot-starter-runtime-metadata</url>
+		</repository>
+	</distributionManagement>
+
+	<issueManagement>
+		<url>https://github.com/cf-toolsuite/spring-boot-starter-runtime-metadata/issues</url>
+		<system>GitHub Issues</system>
+	</issueManagement>
+
 	<properties>
 		<java.version>17</java.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
