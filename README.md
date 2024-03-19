@@ -53,7 +53,7 @@ Add the following `dependency` to your application's `pom.xml` file
 <dependency>
   <groupId>io.pivotal.app.actuator</groupId>
   <artifactId>spring-boot-starter-runtime-metadata</artifactId>
-  <version>0.1.0</version>
+  <version>0.1.1</version>
 </dependency>
 ```
 
@@ -85,7 +85,7 @@ Add the following `dependency` to your application's `build.gradle` file
 
 ```
 dependencies {
-    compile group: 'io.pivotal.app.actuator', name: 'spring-boot-starter-runtime-metadata', version: '0.1.0'
+    compile group: 'io.pivotal.app.actuator', name: 'spring-boot-starter-runtime-metadata', version: '0.1.1'
 }
 ```
 
