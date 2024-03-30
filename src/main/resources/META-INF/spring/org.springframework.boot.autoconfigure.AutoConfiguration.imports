@@ -1,1 +1,1 @@
-io.pivotal.app.actuator.runtime.metadata.RuntimeMetadataAutoConfiguration
+io.github.cftoolsuite.actuator.runtime.metadata.RuntimeMetadataAutoConfiguration

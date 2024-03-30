@@ -1,19 +1,21 @@
-package io.pivotal.app.actuator.runtime.metadata;
+package io.github.cftoolsuite.actuator.runtime.metadata;
+
+import java.util.Set;
 
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 
-@Endpoint(id = "pom")
-public class PomEndpoint {
+@Endpoint(id = "jars")
+public class JarsEndpoint {
 
     private final ArtifactsService artifactsService;
 
-    public PomEndpoint(ArtifactsService artifactsService) {
+    public JarsEndpoint(ArtifactsService artifactsService) {
         this.artifactsService = artifactsService;
     }
 
     @ReadOperation
-    public String getPom() {
-        return artifactsService.findPom();
+    public Set<String> getJars() {
+        return artifactsService.findJars();
     }
 }
