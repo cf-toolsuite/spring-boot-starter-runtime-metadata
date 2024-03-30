@@ -51,7 +51,7 @@ Add the following `dependency` to your application's `pom.xml` file
 
 ```
 <dependency>
-  <groupId>io.github.cftoolsuite.actuator</groupId>
+  <groupId>org.cftoolsuite.actuator</groupId>
   <artifactId>spring-boot-starter-runtime-metadata</artifactId>
   <version>0.2.0</version>
 </dependency>
@@ -85,7 +85,7 @@ Add the following `dependency` to your application's `build.gradle` file
 
 ```
 dependencies {
-    compile group: 'io.github.cftoolsuite.actuator', name: 'spring-boot-starter-runtime-metadata', version: '0.2.0'
+    compile group: 'org.cftoolsuite.actuator', name: 'spring-boot-starter-runtime-metadata', version: '0.2.0'
 }
 ```
 

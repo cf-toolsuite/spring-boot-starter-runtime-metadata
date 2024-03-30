@@ -1,4 +1,4 @@
-package io.github.cftoolsuite.actuator.runtime.metadata;
+package org.cftoolsuite.actuator.runtime.metadata;
 
 import java.io.BufferedReader;
 import java.io.File;

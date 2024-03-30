@@ -1,4 +1,4 @@
-package io.github.cftoolsuite.actuator.runtime.metadata;
+package org.cftoolsuite.actuator.runtime.metadata;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;

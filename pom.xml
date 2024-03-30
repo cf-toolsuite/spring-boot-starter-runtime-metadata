@@ -10,7 +10,7 @@
 		<!-- lookup parent from repository -->
 	</parent>
 
-	<groupId>io.github.cftoolsuite.actuator</groupId>
+	<groupId>org.cftoolsuite.actuator</groupId>
 	<artifactId>spring-boot-starter-runtime-metadata</artifactId>
 	<version>0.2.0</version>
 

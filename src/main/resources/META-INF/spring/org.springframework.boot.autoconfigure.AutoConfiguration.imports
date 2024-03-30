@@ -1,1 +1,1 @@
-io.github.cftoolsuite.actuator.runtime.metadata.RuntimeMetadataAutoConfiguration
+org.cftoolsuite.actuator.runtime.metadata.RuntimeMetadataAutoConfiguration
