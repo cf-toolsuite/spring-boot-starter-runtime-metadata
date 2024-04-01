@@ -209,7 +209,7 @@ Content-Type: application/vnd.spring-boot.actuator.v3+json;charset=UTF-8
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>io.pivotal</groupId>
+  <groupId>org.cftoolsuite.cfapp</groupId>
   <artifactId>cf-butler</artifactId>
   <version>1.0-SNAPSHOT</version>
 
