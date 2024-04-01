@@ -10,9 +10,9 @@
 		<!-- lookup parent from repository -->
 	</parent>
 
-	<groupId>io.pivotal.app.actuator</groupId>
+	<groupId>org.cftoolsuite.actuator</groupId>
 	<artifactId>spring-boot-starter-runtime-metadata</artifactId>
-	<version>0.1.2</version>
+	<version>0.2.0</version>
 
 	<name>spring-boot-starter-runtime-metadata</name>
 	<description>Adds custom actuator endpoints that share details on the dependencies the application requires at runtime</description>
@@ -23,33 +23,28 @@
 		<url>https://github.com/cf-toolsuite/spring-boot-starter-runtime-metadata</url>
 	</scm>
 
+	<licenses>
+		<license>
+			<name>The Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
 	<developers>
 		<developer>
 			<id>cphillipson</id>
 			<name>Chris Phillipson</name>
-			<email>cphillipson@pivotal.io</email>
-			<url>https://pivotal.io</url>
+			<email>cphillipson@cftoolsuite.org</email>
 			<roles>
 				<role>architect</role>
 				<role>developer</role>
 			</roles>
+			<organization>Cloud Foundry Tool Suite</organization>
+			<organizationUrl>https://github.com/cf-toolsuite</organizationUrl>
 			<timezone>America/Seattle</timezone>
 		</developer>
 	</developers>
-
-	<distributionManagement>
-		<!-- publish to GitHub gh-pages -->
-		<site>
-			<id>github</id>
-			<name>Deployment through Maven's SCM Publish Plugin</name>
-			<url>scm:git:git@github.com:cf-toolsuite/spring-boot-starter-runtime-metadata.git</url>
-		</site>
-		<repository>
-			<id>github</id>
-			<name>GitHub Packages</name>
-			<url>https://maven.pkg.github.com/cf-toolsuite/spring-boot-starter-runtime-metadata</url>
-		</repository>
-	</distributionManagement>
 
 	<issueManagement>
 		<url>https://github.com/cf-toolsuite/spring-boot-starter-runtime-metadata/issues</url>
@@ -81,5 +76,153 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.3.0</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>3.1.1</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.6.3</version>
+				<configuration>
+					<skip>false</skip>
+					<doclint>none</doclint>
+					<additionalOptions>-Xdoclint:all -Xdoclint:-missing</additionalOptions>
+					<!-- Default configuration for all reports -->
+					<failOnError>false</failOnError>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.diffplug.spotless</groupId>
+				<artifactId>spotless-maven-plugin</artifactId>
+				<version>2.43.0</version>
+				<configuration>
+					<java>
+						<excludes>
+							<exclude>**/_*.java</exclude>
+						</excludes>
+						<googleJavaFormat>
+							<version>1.19.1</version>
+							<style>AOSP</style>
+							<reflowLongStrings>true</reflowLongStrings>
+							<formatJavadoc>false</formatJavadoc>
+						</googleJavaFormat>
+						<removeUnusedImports />
+					</java>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>versions-maven-plugin</artifactId>
+				<version>2.16.2</version>
+				<configuration>
+					<generateBackupPoms>false</generateBackupPoms>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>github</id>
+			<distributionManagement>
+				<site>
+					<id>github</id>
+					<name>Deployment through Maven's SCM Publish Plugin</name>
+					<url>scm:git:git@github.com:cf-toolsuite/spring-boot-starter-runtime-metadata.git</url>
+				</site>
+				<repository>
+					<id>github</id>
+					<name>GitHub Packages</name>
+					<url>https://maven.pkg.github.com/cf-toolsuite/spring-boot-starter-runtime-metadata</url>
+				</repository>
+			</distributionManagement>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>3.2.2</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+								<configuration>
+									<gpgArguments>
+										<arg>--pinentry-mode</arg>
+										<arg>loopback</arg>
+									</gpgArguments>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>maven-central</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>3.2.2</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+								<configuration>
+									<gpgArguments>
+										<arg>--pinentry-mode</arg>
+										<arg>loopback</arg>
+									</gpgArguments>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.sonatype.central</groupId>
+						<artifactId>central-publishing-maven-plugin</artifactId>
+						<version>0.4.0</version>
+						<extensions>true</extensions>
+						<configuration>
+							<publishingServerId>central</publishingServerId>
+							<tokenAuth>true</tokenAuth>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>

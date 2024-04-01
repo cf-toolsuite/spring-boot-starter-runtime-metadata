@@ -1,4 +1,4 @@
-package io.pivotal.app.actuator.runtime.metadata;
+package org.cftoolsuite.actuator.runtime.metadata;
 
 import java.io.File;
 import java.io.IOException;
