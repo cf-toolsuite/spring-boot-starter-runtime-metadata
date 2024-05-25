@@ -28,7 +28,7 @@ public class JarUtil {
                 }
             }
         } catch (IOException ioe) {
-            log.error(String.format("Problems reading from %s to find matching embedded %s files", jarFile.getName(), extension), ioe);
+            log.error("Problems reading from %s to find matching embedded %s files".formatted(jarFile.getName(), extension), ioe);
         }
         return result;
     }
@@ -43,7 +43,7 @@ public class JarUtil {
                 }
             }
         } catch (IOException ioe) {
-            log.error(String.format("Problems reading from %s to extract contents of embedded %s file", jarFile.getName(), filename), ioe);
+            log.error("Problems reading from %s to extract contents of embedded %s file".formatted(jarFile.getName(), filename), ioe);
         }
         return null;
     }
