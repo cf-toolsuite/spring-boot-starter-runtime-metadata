@@ -32,14 +32,14 @@ public class RuntimeMetadataAutoConfiguration {
     @Bean
 	@ConditionalOnEnabledInfoContributor(value = "sbom", fallback = InfoContributorFallback.DISABLE)
 	@Order(DEFAULT_ORDER)
-    public SimpleCycloneDxInfoContributor simpleCycloneDxInfoContributor(@Value("classpath:bom.json") Resource bomFile) {
+    public SimpleCycloneDxInfoContributor simpleCycloneDxInfoContributor(@Value("classpath:META-INF/sbom/application.cdx.json") Resource bomFile) {
         return new SimpleCycloneDxInfoContributor(bomFile);
     }
 
     @Bean
 	@ConditionalOnEnabledInfoContributor(value = "dependencies", fallback = InfoContributorFallback.DISABLE)
 	@Order(DEFAULT_ORDER)
-    public CycloneDxInfoContributor cycloneDxInfoContributor(@Value("classpath:bom.json") Resource bomFile) {
+    public CycloneDxInfoContributor cycloneDxInfoContributor(@Value("classpath:META-INF/sbom/application.cdx.json") Resource bomFile) {
         return new CycloneDxInfoContributor(bomFile);
     }
 }

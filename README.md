@@ -25,7 +25,7 @@ The first target is Cloud Foundry.  But there's nothing that stops us from doing
 * [SDKMan](https://sdkman.io/)
 * JDK 17 or better
 * (Optionally) access to a [Cloud Foundry](https://www.cloudfoundry.org/) foundation with read-only admin credentials
-
+* Your application source's Maven `pom.xml` or Gradle `build.gradle` file should declare a dependency on Spring Boot 3.2 or better
 
 ## Clone
 
@@ -37,15 +37,17 @@ gh repo clone cf-toolsuite/spring-boot-starter-runtime-metadata
 ## Build
 
 ```
-sdk install java 17.0.10-librca
-sdk use java 17.0.10-librca
+sdk install java 21.0.3-librca
+sdk use java 21.0.3-librca
 ./mvnw clean install
 ```
+
+> Note: As of `spring-boot-starter-runtime-metadata` `0.4.0`, we have a runtime dependency on Java 21 or better.  Prior versions have a runtime dependency on Java 17 or better.
 
 
 ## How to use
 
-### Maven
+### with Spring Boot 3.2
 
 Add the following `dependency` to your application's `pom.xml` file
 
@@ -53,7 +55,7 @@ Add the following `dependency` to your application's `pom.xml` file
 <dependency>
   <groupId>org.cftoolsuite.actuator</groupId>
   <artifactId>spring-boot-starter-runtime-metadata</artifactId>
-  <version>0.2.0</version>
+  <version>0.3.0</version>
 </dependency>
 ```
 
@@ -79,13 +81,60 @@ If you want to embed and expose a bill of materials from your artifact, then you
 </plugin>
 ```
 
-### Gradle
+#### Gradle
 
 Add the following `dependency` to your application's `build.gradle` file
 
 ```
 dependencies {
-    compile group: 'org.cftoolsuite.actuator', name: 'spring-boot-starter-runtime-metadata', version: '0.2.0'
+    compile group: 'org.cftoolsuite.actuator', name: 'spring-boot-starter-runtime-metadata', version: '0.3.0'
+}
+```
+
+If you want to embed and expose a bill of materials from your artifact, then you'll also want to add this plugin to your application's `build.gradle` file too
+
+```
+plugins {
+  id 'org.cyclonedx.bom' version '1.8.2'
+}
+
+tasks.named("cyclonedxBom") {
+  destination = file("${buildDir}/classes")
+}
+```
+
+### with Spring Boot 3.3 or better
+
+> Note: As of `spring-boot-starter-runtime-metadata` `0.4.0`, you will also be able to obtain a software-bill-of-materials from the `/actuator/sbom` endpoint, which is now [built-in](https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.3-Release-Notes#sbom-actuator-endpoint) to Spring Boot `3.3`.
+
+#### Maven
+
+Add the following `dependency` to your application's `pom.xml` file
+
+```
+<dependency>
+  <groupId>org.cftoolsuite.actuator</groupId>
+  <artifactId>spring-boot-starter-runtime-metadata</artifactId>
+  <version>0.4.0</version>
+</dependency>
+```
+
+If you want to embed and expose a bill of materials from your artifact, then you'll also want to add this `plugin` to your application's `pom.xml` file too
+
+```
+<plugin>
+  <groupId>org.cyclonedx</groupId>
+  <artifactId>cyclonedx-maven-plugin</artifactId>
+</plugin>
+```
+
+#### Gradle
+
+Add the following `dependency` to your application's `build.gradle` file
+
+```
+dependencies {
+    compile group: 'org.cftoolsuite.actuator', name: 'spring-boot-starter-runtime-metadata', version: '0.4.0'
 }
 ```
 
@@ -97,7 +146,7 @@ plugins {
 }
 
 tasks.named("cyclonedxBom") {
-  destination = file("${buildDir}/classes/cyclonedx")
+  destination = file("${buildDir}/META-INF/sbom")
 }
 ```
 
@@ -125,7 +174,7 @@ Among several sub-directories underneath the `layers/sbom/launch` directory, you
 Unfortunately, these files are not available and accessible in the container image at runtime.  But what you can do is make a copy of the `sbom.cdx.json` file, like so:
 
 ```
-cp -f layers/sbom/launch/paketo-buildpacks_executable-jar/sbom.cdx.json src/main/resources/sbom.json
+cp -f layers/sbom/launch/paketo-buildpacks_executable-jar/sbom.cdx.json src/main/resources/META-INF/sbom/application.cdx.json
 ```
 
 Then rebuild the container image.  (Remember to repeat this process for any change you make to source).
@@ -257,7 +306,6 @@ And how you can download a software bill of materials
 ❯ http :8080/actuator/info | jq .sbom > sbom.json
 ```
 
-
 ## Roadmap
 
 ### Cloud Foundry and Buildpacks
@@ -270,4 +318,3 @@ What if the [Java Buildpack](https://github.com/cloudfoundry/java-buildpack?tab=
 ### Software Bill of Materials
 
 * Adapted earlier work by Maciej Walkowiak, here: https://maciejwalkowiak.com/blog/maven-dependencies-spring-boot-actuator-info/.
-* Keeping an eye on https://github.com/spring-projects/spring-boot/issues/22924.

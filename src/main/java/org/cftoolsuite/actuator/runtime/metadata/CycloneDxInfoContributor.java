@@ -16,7 +16,7 @@ public class CycloneDxInfoContributor implements InfoContributor, InitializingBe
     private final JsonParser jsonParser = new JsonParser();
     private @Nullable List<Dependency> dependencies;
 
-    public CycloneDxInfoContributor(@Value("classpath:bom.json") Resource bomFile) {
+    public CycloneDxInfoContributor(@Value("classpath:META-INF/sbom/application.cdx.json") Resource bomFile) {
         this.bomFile = bomFile;
     }
 

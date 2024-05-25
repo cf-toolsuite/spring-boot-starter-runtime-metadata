@@ -16,7 +16,7 @@ public class SimpleCycloneDxInfoContributor implements InfoContributor, Initiali
     private final ObjectMapper objectMapper = new ObjectMapper();
     private @Nullable JsonNode bom;
 
-    public SimpleCycloneDxInfoContributor(@Value("classpath:bom.json") Resource bomFile) {
+    public SimpleCycloneDxInfoContributor(@Value("classpath:META-INF/sbom/application.cdx.json") Resource bomFile) {
         this.bomFile = bomFile;
     }
 
