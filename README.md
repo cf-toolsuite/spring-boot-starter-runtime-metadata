@@ -171,10 +171,24 @@ Among several sub-directories underneath the `layers/sbom/launch` directory, you
   +- sbom.syft.json
 ```
 
-Unfortunately, these files are not available and accessible in the container image at runtime.  But what you can do is make a copy of the `sbom.cdx.json` file, like so:
+Unfortunately, these files are not available and accessible in the container image at runtime.  But what you can do is make a copy of the `sbom.cdx.json` file.
+
+Set a variable name.
+
+For applications with dependencies on Spring Boot 3.2, set
 
 ```
-cp -f layers/sbom/launch/paketo-buildpacks_executable-jar/sbom.cdx.json src/main/resources/META-INF/sbom/application.cdx.json
+SBOM_FILENAME=sbom.json
+```
+
+For applications with dependencies on Spring Boot 3.3 or better, set
+
+```
+SBOM_FILENAME=META-INF/sbom/application.cdx.json
+```
+
+```
+cp -f layers/sbom/launch/paketo-buildpacks_executable-jar/sbom.cdx.json src/main/resources/$SBOM_FILENAME
 ```
 
 Then rebuild the container image.  (Remember to repeat this process for any change you make to source).
@@ -201,6 +215,15 @@ And if you want to expose the `/actuator/info`, `/actuator/jars` and `/actuator/
         include: "info,jars,pom"
 ```
 > where `endpoints` above is a sibling of (shares the same indentation as) `info`
+
+Also, note if you want to expose the `/actuator/sbom` endpoint, available since Spring Boot 3.3, you'll need to update the above to be
+
+```
+endpoints:
+    web:
+      exposure:
+        include: "health,info,jars,pom,sbom"
+```
 
 Build your application, then start it up.
 
