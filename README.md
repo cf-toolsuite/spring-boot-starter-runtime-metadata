@@ -23,7 +23,7 @@ The first target is Cloud Foundry.  But there's nothing that stops us from doing
 ## Prerequisites
 
 * [SDKMan](https://sdkman.io/)
-* JDK 17 or better
+* JDK 21 or better
 * (Optionally) access to a [Cloud Foundry](https://www.cloudfoundry.org/) foundation with read-only admin credentials
 * Your application source's Maven `pom.xml` or Gradle `build.gradle` file should declare a dependency on Spring Boot 3.2 or better
 
@@ -37,8 +37,8 @@ gh repo clone cf-toolsuite/spring-boot-starter-runtime-metadata
 ## Build
 
 ```
-sdk install java 21.0.3-librca
-sdk use java 21.0.3-librca
+sdk install java 21.0.7-librca
+sdk use java 21.0.7-librca
 ./mvnw clean install
 ```
 
@@ -47,7 +47,16 @@ sdk use java 21.0.3-librca
 
 ## How to use
 
-### with Spring Boot 3.2
+### Compatibility Matrix
+
+| Spring Boot | Runtime Metadata |
+|-------------|------------------|
+| 3.2.x | 0.3.0 |
+| 3.3.x | 0.4.0 |
+| 3.4.x | 0.6.0 |
+| 3.5.x | 0.7.0 |
+
+### with Spring Boot 3.2.x
 
 Add the following `dependency` to your application's `pom.xml` file
 
@@ -103,9 +112,11 @@ tasks.named("cyclonedxBom") {
 }
 ```
 
-### with Spring Boot 3.3 or better
+### with Spring Boot 3.3.x
 
 > Note: As of `spring-boot-starter-runtime-metadata` `0.4.0`, you will also be able to obtain a software-bill-of-materials from the `/actuator/sbom` endpoint, which is now [built-in](https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.3-Release-Notes#sbom-actuator-endpoint) to Spring Boot `3.3`.
+
+### with Spring Boot 3.5.x
 
 #### Maven
 
@@ -115,7 +126,7 @@ Add the following `dependency` to your application's `pom.xml` file
 <dependency>
   <groupId>org.cftoolsuite.actuator</groupId>
   <artifactId>spring-boot-starter-runtime-metadata</artifactId>
-  <version>0.6.0</version>
+  <version>0.7.0</version>
 </dependency>
 ```
 
