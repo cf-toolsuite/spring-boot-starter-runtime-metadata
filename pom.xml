@@ -5,14 +5,14 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.4.4</version>
+		<version>3.5.3</version>
 		<relativePath/>
 		<!-- lookup parent from repository -->
 	</parent>
 
 	<groupId>org.cftoolsuite.actuator</groupId>
 	<artifactId>spring-boot-starter-runtime-metadata</artifactId>
-	<version>0.6.0</version>
+	<version>0.7.0</version>
 
 	<name>spring-boot-starter-runtime-metadata</name>
 	<description>Adds custom actuator endpoints that share details on the dependencies the application requires at runtime</description>
@@ -116,7 +116,7 @@
 			<plugin>
 				<groupId>com.diffplug.spotless</groupId>
 				<artifactId>spotless-maven-plugin</artifactId>
-				<version>2.44.3</version>
+				<version>2.44.5</version>
 				<configuration>
 					<java>
 						<excludes>
