@@ -1,19 +1,22 @@
 package org.cftoolsuite.actuator.runtime.metadata;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import org.cyclonedx.parsers.JsonParser;
+import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.info.Info;
 import org.springframework.boot.actuate.info.InfoContributor;
 import org.springframework.core.io.Resource;
-import org.springframework.lang.Nullable;
+
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 
 public class CycloneDxInfoContributor implements InfoContributor, InitializingBean {
+
     private final Resource bomFile;
-    private final JsonParser jsonParser = new JsonParser();
+    private final ObjectMapper objectMapper = new ObjectMapper();
     private @Nullable List<Dependency> dependencies;
 
     public CycloneDxInfoContributor(@Value("classpath:META-INF/sbom/application.cdx.json") Resource bomFile) {
@@ -31,18 +34,25 @@ public class CycloneDxInfoContributor implements InfoContributor, InitializingBe
     public void afterPropertiesSet() throws Exception {
         if (bomFile.exists()) {
             try (var is = bomFile.getInputStream()) {
-                var bom = jsonParser.parse(is);
-                this.dependencies = bom.getComponents()
-                        .stream()
-                        .map(Dependency::new)
-                        .collect(Collectors.toList());
+                JsonNode root = objectMapper.readTree(is);
+                JsonNode components = root.get("components");
+                if (components != null && components.isArray()) {
+                    this.dependencies = new ArrayList<>();
+                    for (JsonNode component : components) {
+                        String group = getStringOrNull(component, "group");
+                        String name = getStringOrNull(component, "name");
+                        String version = getStringOrNull(component, "version");
+                        this.dependencies.add(new Dependency(group, name, version));
+                    }
+                }
             }
         }
     }
 
-    record Dependency(String groupId, String artifactId, String version){
-        Dependency(org.cyclonedx.model.Component component) {
-            this(component.getGroup(), component.getName(), component.getVersion());
-        }
+    private String getStringOrNull(JsonNode node, String field) {
+        JsonNode fieldNode = node.get(field);
+        return fieldNode != null && !fieldNode.isNull() ? fieldNode.stringValue() : null;
     }
+
+    record Dependency(String groupId, String artifactId, String version) {}
 }
